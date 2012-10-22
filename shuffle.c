@@ -2,7 +2,7 @@
 
 #include "shuffle.h"
 
-/** Generates a random integer in [i, j - 1). */
+/** Generates a random integer in [i, j). */
 static inline int my_random(int i, int j) {
   return i + rand() % (j - i);
 }
