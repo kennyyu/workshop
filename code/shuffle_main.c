@@ -5,11 +5,17 @@
 #include "shuffle.h"
 
 int main(int argc, char **argv) {
-  if (argc != 2) {
-    fprintf(stderr, "usage: %s <int>\n", argv[0]);
+  if (argc != 3 && argc != 2) {
+    fprintf(stderr, "usage: %s num_items [seed]\n", argv[0]);
     exit(-1);
   }
-  srand(time(NULL)); // seed our random number generator
+
+  // seed our random number generator
+  if (argc == 3) {
+    srand(atoi(argv[2]));
+  } else {
+    srand(time(NULL));
+  }
 
   // create an array of numbers 0...n-1
   int n = atoi(argv[1]);
