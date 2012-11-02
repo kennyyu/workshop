@@ -21,10 +21,3 @@ void shuffle(int *array, int n) {
     swap(&array[i], &array[my_random(i, n)]);
   }
 }
-
-void make_list(int *array, int n) {
-  int half = n / 2;
-  for (int i = 0; i < n; i++) {
-    array[i] = i - half;
-  }
-}

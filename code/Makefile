@@ -1,25 +1,21 @@
 CC = gcc
 FLAGS = -g -std=c99
+INCLUDES = shuffle.h lib.h stocks.h subarray.h
+PROG = shuffle subarray stocks
 
-all: shuffle subarray stocks
+%.o: %.c $(INCLUDES)
+	$(CC) $(FLAGS) -o $@ -c $<
 
-shuffle.o: shuffle.h shuffle.c
-	$(CC) $(FLAGS) -c shuffle.c
+all: $(PROG)
 
-subarray.o: subarray.h subarray.c
-	$(CC) $(FLAGS) -c subarray.c
+shuffle: shuffle.o lib.o shuffle_main.o
+	$(CC) $(FLAGS) -o $@ $^
 
-stocks.o: stocks.h stocks.c
-	$(CC) $(FLAGS) -c stocks.c
+subarray: subarray.o shuffle.o lib.o subarray_main.o
+	$(CC) $(FLAGS) -o $@ $^
 
-shuffle: shuffle.o shuffle_main.c
-	$(CC) $(FLAGS) -o shuffle shuffle.o shuffle_main.c
-
-subarray: subarray.o shuffle.o subarray_main.c
-	$(CC) $(FLAGS) -o subarray shuffle.o subarray.o subarray_main.c
-
-stocks: stocks.o subarray.o shuffle.o stocks_main.c
-	$(CC) $(FLAGS) -o stocks shuffle.o subarray.o stocks.o stocks_main.c
+stocks: subarray.o stocks.o lib.o shuffle.o stocks_main.o
+	$(CC) $(FLAGS) -o $@ $^
 
 clean:
-	rm *.o *~ shuffle subarray stocks
+	rm *.o *~ $(PROG)
