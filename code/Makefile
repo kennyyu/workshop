@@ -14,7 +14,7 @@ shuffle: shuffle.o lib.o shuffle_main.o
 subarray: subarray.o shuffle.o lib.o subarray_main.o
 	$(CC) $(FLAGS) -o $@ $^
 
-stocks: subarray.o stocks.o lib.o shuffle.o stocks_main.o
+stocks: subarray.o stocks.o shuffle.o lib.o stocks_main.o
 	$(CC) $(FLAGS) -o $@ $^
 
 clean:
